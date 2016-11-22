@@ -16,7 +16,7 @@ config.TEST.RPN_POST_NMS_TOP_N = 2000
 
 
 def test_rpn(args, ctx, prefix, epoch,
-             vis=False, shuffle=False, thresh=0):
+             vis=False, shuffle=False, thresh=0.7):
     # load symbol
     sym = eval('get_' + args.network + '_rpn_test')()
 
@@ -74,8 +74,13 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-if __name__ == '__main__':
+
+def main():
     args = parse_args()
+    print 'Called with argument:', args
     ctx = mx.gpu(args.gpu)
     test_rpn(args, ctx, args.prefix, args.epoch,
              vis=args.vis, shuffle=args.shuffle, thresh=args.thresh)
+
+if __name__ == '__main__':
+    main()
